@@ -1,0 +1,24 @@
+component resistor_custom < foundation.electrical.branch
+% Resistor
+% The voltage-current (V-I) relationship for a linear resistor is V=I*R,
+% where R is the constant resistance in ohms.
+%
+% The positive and negative terminals of the resistor are denoted by the
+% + and - signs respectively. By convention, the voltage across the
+% resistor is given by V(+)-V(-), and the sign of the current is positive
+% when flowing through the device from the positive to the negative
+% terminal. This convention ensures that the power absorbed by a resistor
+% is always positive.
+
+% Copyright 2005-2016 The MathWorks, Inc.
+
+inputs
+    R = { 1, 'Ohm' }; % Resistance
+end
+
+equations
+    assert(R>=0);
+    v == R*i;
+end
+
+end

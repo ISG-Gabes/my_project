@@ -1,0 +1,38 @@
+component capacitor_custom < foundation.electrical.branch
+% Capacitor
+% Models a linear capacitor. The relationship between voltage V and
+% current I is I=C*dV/dt where C is the capacitance in farads.
+%
+% The Series resistance and Parallel conductance represent small
+% parasitic effects. The parallel conductance can be used to model
+% dielectric losses and the series resistance used to represent the
+% effective series resistance (ESR) of the capacitor. Simulation of
+% some circuits may require the presence of the small series resistance.
+% Consult the documentation for further details.
+
+% Copyright 2005-2017 The MathWorks, Inc. 
+
+inputs
+    c  = { 1e-3, 'F' }; % Capacitance
+end
+
+parameters
+    r  = { 1e-6, 'Ohm' }; % Series resistance
+    g  = { 0, '1/Ohm' };  % Parallel conductance
+end
+
+variables
+    vc = {value = { 0, 'V' }, priority = priority.high}; % Capacitor voltage
+end
+
+equations
+    assert(c>0)
+    assert(g>=0)
+    assert(isfinite(g))
+    assert(r>=0)
+    assert(isfinite(r))
+    v == i*r + vc;
+    i == c*vc.der + g*vc;
+end
+
+end
